@@ -1,0 +1,60 @@
+/* Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Danfo&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans;
+  }
+  h1 {
+    @apply font-serif;
+  }
+}
+
+/* Slider track styles */
+.range-slider {
+  @apply bg-primary;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+}
+
+/* Slider thumb styles */
+.range-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-image: url("/images/bored.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgb(0, 0, 0, 0.3);
+  transform: var(--thumb-rotation);
+  transition: transform 0.3s ease;
+}
+
+.range-slider::-moz-range-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-image: url("/images/bored.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgb(0, 0, 0, 0.3);
+}
+
+/* Active slider thumb styles */
+.range-slider:active::-webkit-slider-thumb,
+.range-slider:active::-moz-range-thumb {
+  transform: scale(1.2);
+}
