@@ -37,7 +37,7 @@
   cursor: pointer;
   box-shadow: 0 0 2px rgb(0, 0, 0, 0.3);
   transform: var(--thumb-rotation);
-  transition: transform 0.3s ease;
+  transition: transform 0.7s ease;
 }
 
 .range-slider::-moz-range-thumb {
@@ -50,7 +50,8 @@
   background-position: center;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 0 2px rgb(0, 0, 0, 0.3);
+  transform: var(--thumb-rotation);
+  transition: transform 0.3s ease;
 }
 
 /* Active slider thumb styles */
