@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 import Button from "./Button";
@@ -20,58 +20,60 @@ function ActivityForm() {
     setRotationAngle((prevAngle) => prevAngle + 360);
   };
 
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = async (e) => {
     e.preventDefault();
-    fetchActivity(activityType);
+    const success = await fetchActivity(activityType);
 
-    if (!error) {
+    if (success) {
       setShowActivity(true);
     }
   };
 
-  const handleSubmitRandom = (e) => {
+  const handleSubmitRandom = async (e) => {
     e.preventDefault();
-    fetchActivity("random");
+    const success = await fetchActivity("random");
 
-    if (!error) {
+    if (success) {
       setShowActivity(true);
     }
   };
 
-  if (error !== null) {
-    toast.error(
-      <div className="flex flex-col gap-5 ml-2 ">
-        <p>
-          Too many people are bored and looking for something to do. Please try
-          again later.
-        </p>
-        <p>
-          Dorothy Parker once said{" "}
-          <quote className="italic">
-            &quot;The cure for boredom is curiosity&quot;
-          </quote>
-        </p>
-        <p>Always remember to stay curious 😉</p>
-      </div>,
-      {
-        duration: 8000,
-        position: "top-center",
-        className: "border border-primary p-2",
+  useEffect(() => {
+    if (error !== null) {
+      toast.error(
+        <div className="flex flex-col gap-5 ml-2 ">
+          <p>
+            Too many people are bored and looking for something to do. Please
+            try again later.
+          </p>
+          <p>
+            Dorothy Parker once said{" "}
+            <quote className="italic">
+              &quot;The cure for boredom is curiosity&quot;
+            </quote>
+          </p>
+          <p>Always remember to stay curious 😉</p>
+        </div>,
+        {
+          duration: 8000,
+          position: "top-center",
+          className: "border border-primary p-2",
 
-        // Change colors of success/error/loading icon
-        iconTheme: {
-          primary: "#ffafcc",
-          secondary: "#fff",
-        },
+          // Change colors of success/error/loading icon
+          iconTheme: {
+            primary: "#ffafcc",
+            secondary: "#fff",
+          },
 
-        // Aria
-        ariaProps: {
-          role: "status",
-          "aria-live": "polite",
-        },
-      }
-    );
-  }
+          // Aria
+          ariaProps: {
+            role: "status",
+            "aria-live": "polite",
+          },
+        }
+      );
+    }
+  }, [error]);
 
   return (
     <div className="h-full flex flex-col justify-center items-center gap-28 relative">
@@ -134,6 +136,7 @@ function ActivityForm() {
 
 export default ActivityForm;
 
+// set activity icon based on activity
+// handle searching by type, or particpants    http://www.boredapi.com/api/activity?participants=1.
+// fix activity font size issue
 // handle disabled state on button
-// toast showing twice
-// error isn't being set fast enough to stop activity being shown

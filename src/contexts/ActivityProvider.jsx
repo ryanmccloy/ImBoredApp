@@ -6,6 +6,7 @@ const ActivityContext = createContext();
 
 function ActivityProvider({ children }) {
   const [activity, setActivity] = useState(null);
+
   const [showActivity, setShowActivity] = useState(false);
   const {
     fetchActivity: fetchActivityData,
@@ -19,10 +20,15 @@ function ActivityProvider({ children }) {
       console.log(data);
 
       if (Array.isArray(data)) {
-        setActivity(data[randomIndex(data)].activity);
+        const index = randomIndex(data);
+        setActivity(data[index].activity);
       } else {
         setActivity(data.activity);
       }
+
+      return true; // return success
+    } else {
+      return false; // return failure if no data or error occurred
     }
   };
 
@@ -31,6 +37,7 @@ function ActivityProvider({ children }) {
       value={{
         activity,
         setActivity,
+
         showActivity,
         setShowActivity,
         fetchActivity,

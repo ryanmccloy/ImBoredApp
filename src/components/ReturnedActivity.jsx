@@ -12,7 +12,7 @@ function ReturnedActivity() {
 
   return (
     <div
-      className={`bg-primary h-[100dvh] p-5 w-full flex flex-col justify-between items-center absolute top-0 left-0 transition-transform duration-700 ${
+      className={` bg-primary h-[100dvh] p-5 w-full flex flex-col justify-between items-center absolute top-0 left-0 transition-transform duration-700 ${
         showActivity ? "transform translate-y-0" : "transform translate-y-full"
       }`}
     >

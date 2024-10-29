@@ -1,5 +1,5 @@
-import { BarLoader } from "react-spinners";
 import { useActivity } from "../contexts/ActivityProvider";
+import { BarLoader } from "react-spinners";
 
 function Activity() {
   const { isLoading, activity } = useActivity();
@@ -10,12 +10,19 @@ function Activity() {
           <BarLoader color="#bde0fe" />
         </div>
       ) : (
-        <h2
-          className=" text-secondary font-semibold leading-tight"
-          style={{ fontSize: "clamp(3rem, 4rem, 6rem)" }}
-        >
-          {activity}
-        </h2>
+        <div>
+          <img
+            src="/public/images/bored.png"
+            alt="bored emoji"
+            className="absolute top-28 -right-[30%] -z-10 opacity-80 scale-150"
+          />
+          <h2
+            className=" text-secondary font-semibold leading-tight"
+            style={{ fontSize: "clamp(2rem, 4rem, 6rem)" }}
+          >
+            {activity}
+          </h2>
+        </div>
       )}
     </>
   );
