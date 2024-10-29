@@ -4,7 +4,7 @@ const API_BASE_URL = "/api/fetchActivity";
 
 export function useActivityFetcher() {
   const [isLoading, setIsLoading] = useState();
-  const [error, setError] = useState();
+  const [error, setError] = useState(null);
 
   const fetchActivity = async function (type) {
     const API_URL = `${API_BASE_URL}?type=${type}`;

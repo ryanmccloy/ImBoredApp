@@ -1,9 +1,9 @@
-function Button({ children, onClick, type = "button" }) {
+function Button({ children, onClick, type = "button", bg }) {
   return (
     <button
       type={type}
       onClick={onClick}
-      className="bg-primary rounded p-1 border border-white hover:scale-105  transition-all duration-300 "
+      className={`bg-${bg} rounded p-2 border border-white hover:scale-105  transition-all duration-300 `}
     >
       {children}
     </button>

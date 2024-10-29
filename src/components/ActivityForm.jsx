@@ -1,4 +1,6 @@
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+
 import Button from "./Button";
 import { useActivity } from "../contexts/ActivityProvider";
 
@@ -7,7 +9,7 @@ function ActivityForm() {
   const [participants, setParticipants] = useState(1);
   const [rotationAngle, setRotationAngle] = useState(0);
 
-  const { fetchActivity } = useActivity();
+  const { setShowActivity, fetchActivity, error } = useActivity();
 
   const handleActivityTypeChange = (e) => {
     setActivityType(e.target.value);
@@ -21,15 +23,62 @@ function ActivityForm() {
   const handleSubmitForm = (e) => {
     e.preventDefault();
     fetchActivity(activityType);
+
+    if (!error) {
+      setShowActivity(true);
+    }
   };
 
   const handleSubmitRandom = (e) => {
     e.preventDefault();
     fetchActivity("random");
+
+    if (!error) {
+      setShowActivity(true);
+    }
   };
 
+  if (error !== null) {
+    toast.error(
+      <div className="flex flex-col gap-5 ml-2 ">
+        <p>
+          Too many people are bored and looking for something to do. Please try
+          again later.
+        </p>
+        <p>
+          Dorothy Parker once said{" "}
+          <quote className="italic">
+            &quot;The cure for boredom is curiosity&quot;
+          </quote>
+        </p>
+        <p>Always remember to stay curious 😉</p>
+      </div>,
+      {
+        duration: 8000,
+        position: "top-center",
+        className: "border border-primary p-2",
+
+        // Change colors of success/error/loading icon
+        iconTheme: {
+          primary: "#ffafcc",
+          secondary: "#fff",
+        },
+
+        // Aria
+        ariaProps: {
+          role: "status",
+          "aria-live": "polite",
+        },
+      }
+    );
+  }
+
   return (
-    <div className="h-[100dvh] flex flex-col justify-center items-center gap-28">
+    <div className="h-full flex flex-col justify-center items-center gap-28 relative">
+      <Toaster />
+      <h1 className=" absolute top-10 text-6xl bg-gradient-to-b from-primary to-secondary bg-clip-text text-transparent">
+        I&apos;m Bored
+      </h1>
       <form
         className="mx-auto w-fit text-center flex flex-col gap-14"
         onSubmit={handleSubmitForm}
@@ -72,17 +121,19 @@ function ActivityForm() {
           />
         </div>
 
-        <Button type="submit">Find me something to do</Button>
+        <Button type="submit" bg="primary">
+          Find me something to do
+        </Button>
       </form>
-      <Button onClick={handleSubmitRandom}>Surpise Me</Button>
+      <Button onClick={handleSubmitRandom} bg="primary">
+        Surpise Me
+      </Button>
     </div>
   );
 }
 
 export default ActivityForm;
 
-// Create context
-// create api calls for onSubmit, and onClick for random button
-// handle loading state
-// handle disabled state on button?
-// create activity component
+// handle disabled state on button
+// toast showing twice
+// error isn't being set fast enough to stop activity being shown

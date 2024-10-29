@@ -3,7 +3,7 @@ import ReturnedActivity from "./components/ReturnedActivity";
 
 function App() {
   return (
-    <div className="bg-secondary">
+    <div className="bg-secondary relative h-[100dvh] overflow-hidden">
       <ActivityForm />
       <ReturnedActivity />
     </div>
