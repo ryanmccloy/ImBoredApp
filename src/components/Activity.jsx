@@ -12,7 +12,7 @@ function Activity() {
       ) : (
         <div className=" self-start">
           <img
-            src="/public/images/bored.png"
+            src="/images/bored.png"
             alt="bored emoji"
             className="absolute top-28 -right-[30%] -z-10 opacity-80 scale-150"
           />
