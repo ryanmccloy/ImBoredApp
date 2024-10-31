@@ -10,7 +10,7 @@ function Activity() {
           <BarLoader color="#bde0fe" />
         </div>
       ) : (
-        <div>
+        <div className=" self-start">
           <img
             src="/public/images/bored.png"
             alt="bored emoji"

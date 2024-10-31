@@ -22,8 +22,14 @@ function ActivityForm() {
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-    const success = await fetchActivity(activityType);
+    let success = false;
+    const action = e.nativeEvent.submitter.name;
 
+    if (action === "byType") {
+      success = await fetchActivity(activityType);
+    } else if (action === "byParticipants") {
+      success = await fetchActivity(participants);
+    }
     if (success) {
       setShowActivity(true);
     }
@@ -113,7 +119,7 @@ function ActivityForm() {
           <input
             type="range"
             min="1"
-            max="8"
+            max="5"
             id="participants"
             name="participants"
             value={participants}
@@ -123,9 +129,17 @@ function ActivityForm() {
           />
         </div>
 
-        <Button type="submit" bg="primary">
-          Find me something to do
-        </Button>
+        <div className="flex flex-col gap-3">
+          <h2 className="self-start">Find me something to do by:</h2>
+          <div className="flex gap-4">
+            <Button type="submit" bg="primary" name="byType">
+              Activity Type
+            </Button>
+            <Button type="submit" bg="primary" name="byParticipants">
+              Participants
+            </Button>
+          </div>
+        </div>
       </form>
       <Button onClick={handleSubmitRandom} bg="primary">
         Surpise Me
@@ -136,7 +150,4 @@ function ActivityForm() {
 
 export default ActivityForm;
 
-// set activity icon based on activity
-// handle searching by type, or particpants    http://www.boredapi.com/api/activity?participants=1.
 // fix activity font size issue
-// handle disabled state on button

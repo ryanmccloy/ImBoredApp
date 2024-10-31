@@ -1,11 +1,15 @@
 export default async function handler(req, res) {
   const { type } = req.query;
 
+  // Check if type can be converted to a number
+  const parsedType = parseInt(type, 10);
+
   const API_URL =
     type === "random"
       ? `https://bored-api.appbrewery.com/${type}`
-      : `https://bored-api.appbrewery.com/filter?type=${type}`;
-
+      : isNaN(parsedType)
+      ? `https://bored-api.appbrewery.com/filter?type=${type}`
+      : `https://bored-api.appbrewery.com/filter?participants=${parsedType}`;
   try {
     const response = await fetch(API_URL);
     if (!response.ok) {
