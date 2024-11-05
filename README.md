@@ -13,9 +13,9 @@ The **I'm Bored App** is a simple tool designed to help users find something fun
 ## Usage
 
 1. **Choose an Activity Type**: Use the dropdown to select a specific type of activity.
-   2 **Alternatively Specify Participants**: Input the number of participants.
-2. **Surprise Me!**: Click the "Surprise Me" button for a random suggestion if you’re open to any activity.
-3. **Results Display**: The app will display an activity suggestion based on your chosen filters or the random selection.
+1. **Alternatively Specify Participants**: Input the number of participants.
+1. **Surprise Me!**: Click the "Surprise Me" button for a random suggestion if you’re open to any activity.
+1. **Results Display**: The app will display an activity suggestion based on your chosen filters or the random selection.
 
 ## Technologies Used
 
