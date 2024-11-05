@@ -150,4 +150,9 @@ function ActivityForm() {
 
 export default ActivityForm;
 
+// interview 2pm
 // fix activity font size issue
+// change emoji style on activity page?
+// responsive
+// readme
+// add to portfolio
