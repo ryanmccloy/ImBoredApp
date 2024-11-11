@@ -6,7 +6,6 @@ const ActivityContext = createContext();
 
 function ActivityProvider({ children }) {
   const [activity, setActivity] = useState(null);
-
   const [showActivity, setShowActivity] = useState(false);
   const {
     fetchActivity: fetchActivityData,
@@ -15,7 +14,6 @@ function ActivityProvider({ children }) {
   } = useActivityFetcher();
 
   const fetchActivity = async function (type) {
-    console.log(type);
     const data = await fetchActivityData(type);
     if (data) {
       console.log(data);
@@ -38,7 +36,6 @@ function ActivityProvider({ children }) {
       value={{
         activity,
         setActivity,
-
         showActivity,
         setShowActivity,
         fetchActivity,

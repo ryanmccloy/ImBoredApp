@@ -3,13 +3,24 @@ import toast, { Toaster } from "react-hot-toast";
 
 import Button from "./Button";
 import { useActivity } from "../contexts/ActivityProvider";
+import { ScaleLoader } from "react-spinners";
 
 function ActivityForm() {
   const [activityType, setActivityType] = useState("education");
+  const [isLoadingActivityByType, setIsLoadingActivityByType] = useState(false);
   const [participants, setParticipants] = useState(1);
+  const [isLoadingActivityByParticipants, setIsLoadingActivityByParticipants] =
+    useState(false);
+  const [isLoadingActivityByRandom, setIsLoadingActivityByRandom] =
+    useState(false);
   const [rotationAngle, setRotationAngle] = useState(0);
 
   const { setShowActivity, fetchActivity, error } = useActivity();
+
+  const loaderColor =
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--tw-color-secondary"
+    ) || "#bde0fe";
 
   const handleActivityTypeChange = (e) => {
     setActivityType(e.target.value);
@@ -26,21 +37,27 @@ function ActivityForm() {
     const action = e.nativeEvent.submitter.name;
 
     if (action === "byType") {
+      setIsLoadingActivityByType(true);
       success = await fetchActivity(activityType);
     } else if (action === "byParticipants") {
+      setIsLoadingActivityByParticipants(true);
       success = await fetchActivity(participants);
     }
     if (success) {
       setShowActivity(true);
+      setIsLoadingActivityByType(false);
+      setIsLoadingActivityByParticipants(false);
     }
   };
 
   const handleSubmitRandom = async (e) => {
     e.preventDefault();
+    setIsLoadingActivityByRandom(true);
     const success = await fetchActivity("random");
 
     if (success) {
       setShowActivity(true);
+      setIsLoadingActivityByRandom(false);
     }
   };
 
@@ -54,9 +71,9 @@ function ActivityForm() {
           </p>
           <p>
             Dorothy Parker once said{" "}
-            <quote className="italic">
+            <span className="italic">
               &quot;The cure for boredom is curiosity&quot;
-            </quote>
+            </span>
           </p>
           <p>Always remember to stay curious 😉</p>
         </div>,
@@ -78,6 +95,14 @@ function ActivityForm() {
           },
         }
       );
+
+      const removeLoader = setTimeout(() => {
+        setIsLoadingActivityByType(false);
+        setIsLoadingActivityByParticipants(false);
+        setIsLoadingActivityByRandom(false);
+      }, 2000);
+
+      return () => clearTimeout(removeLoader);
     }
   }, [error]);
 
@@ -91,7 +116,7 @@ function ActivityForm() {
         className="mx-auto w-fit text-center flex flex-col gap-14"
         onSubmit={handleSubmitForm}
       >
-        <div className="flex gap-2 items-center">
+        <div className="flex justify-between gap-2 items-center">
           <label htmlFor="activity-type">Activity type: </label>
           <select
             id="activity-type"
@@ -133,16 +158,28 @@ function ActivityForm() {
           <h2 className="self-start">Find me something to do by:</h2>
           <div className="flex gap-4">
             <Button type="submit" bg="primary" name="byType">
-              Activity Type
+              {isLoadingActivityByType ? (
+                <ScaleLoader color={loaderColor} height={10} />
+              ) : (
+                "Activity Type"
+              )}
             </Button>
             <Button type="submit" bg="primary" name="byParticipants">
-              Participants
+              {isLoadingActivityByParticipants ? (
+                <ScaleLoader color={loaderColor} height={10} />
+              ) : (
+                "Participants"
+              )}
             </Button>
           </div>
         </div>
       </form>
       <Button onClick={handleSubmitRandom} bg="primary">
-        Surpise Me
+        {isLoadingActivityByRandom ? (
+          <ScaleLoader color={loaderColor} height={10} />
+        ) : (
+          "Surprise Me"
+        )}
       </Button>
     </div>
   );
@@ -150,9 +187,6 @@ function ActivityForm() {
 
 export default ActivityForm;
 
-// interview 2pm
-// fix activity font size issue
 // change emoji style on activity page?
 // responsive
-// readme
 // add to portfolio
