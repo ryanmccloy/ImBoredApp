@@ -5,3 +5,7 @@ export const randomIndex = function (data) {
   const index = Math.floor(Math.random() * (max - min + 1)) + min;
   return index;
 };
+
+export const sleep = async (ms) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};

@@ -59,3 +59,19 @@
 .range-slider:active::-moz-range-thumb {
   transform: scale(1.2);
 }
+
+.cursor {
+  animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 100%;
+  }
+  50% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}

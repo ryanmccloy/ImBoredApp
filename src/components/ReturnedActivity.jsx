@@ -20,7 +20,9 @@ function ReturnedActivity() {
         Back
       </Button>
 
-      <Activity />
+      <div className="self-start">
+        <Activity />
+      </div>
     </div>
   );
 }

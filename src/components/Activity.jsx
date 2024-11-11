@@ -1,30 +1,35 @@
+import { useEffect, useRef } from "react";
 import { useActivity } from "../contexts/ActivityProvider";
-import { BarLoader } from "react-spinners";
+import { sleep } from "../helpers/helpers";
 
 function Activity() {
-  const { isLoading, activity } = useActivity();
+  const typewriterRef = useRef(null);
+  const { activity } = useActivity();
+
+  useEffect(() => {
+    const typer = async (text) => {
+      for (let i = 0; i < text.length; i++) {
+        if (typewriterRef.current) {
+          typewriterRef.current.innerText = text.substring(0, i + 1);
+        }
+
+        await sleep(100);
+      }
+    };
+
+    if (activity) {
+      typer(activity);
+    }
+  }, [activity]);
+
   return (
-    <>
-      {isLoading ? (
-        <div className="my-auto">
-          <BarLoader color="#bde0fe" />
-        </div>
-      ) : (
-        <div className=" self-start">
-          <img
-            src="/images/bored.png"
-            alt="bored emoji"
-            className="absolute top-28 -right-[30%] -z-10 opacity-80 scale-150"
-          />
-          <h2
-            className=" text-secondary font-semibold leading-tight"
-            style={{ fontSize: "clamp(2rem, 4rem, 6rem)" }}
-          >
-            {activity}
-          </h2>
-        </div>
-      )}
-    </>
+    <h2
+      className=" text-secondary  font-semibold leading-tight"
+      style={{ fontSize: "clamp(2rem, 4rem, 6rem)" }}
+    >
+      <span ref={typewriterRef}></span>
+      <span className="cursor">|</span>
+    </h2>
   );
 }
 
