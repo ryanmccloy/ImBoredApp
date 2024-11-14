@@ -23,10 +23,7 @@ function Activity() {
   }, [activity]);
 
   return (
-    <h2
-      className=" text-secondary  font-semibold leading-tight"
-      style={{ fontSize: "clamp(2rem, 4rem, 6rem)" }}
-    >
+    <h2 className=" text-secondary text-7xl md:text-8xl   font-semibold leading-tight">
       <span ref={typewriterRef}></span>
       <span className="cursor">|</span>
     </h2>
