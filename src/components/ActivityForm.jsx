@@ -13,7 +13,7 @@ function ActivityForm() {
   const [isLoadingActivityByRandom, setIsLoadingActivityByRandom] =
     useState(false);
 
-  const { setShowActivity, fetchActivity, error } = useActivity();
+  const { showActivity, setShowActivity, fetchActivity, error } = useActivity();
 
   const loaderColor =
     getComputedStyle(document.documentElement).getPropertyValue(
@@ -77,7 +77,11 @@ function ActivityForm() {
   }, [error]);
 
   return (
-    <div className="h-full flex flex-col justify-center items-center gap-28 relative">
+    <div
+      className={`h-full flex flex-col justify-center items-center gap-28 relative transition-all duration-700 ${
+        showActivity ? "w-full xl:w-1/2" : "w-full"
+      }`}
+    >
       <Toaster />
       <h1 className=" absolute top-10 text-6xl bg-gradient-to-b from-primary to-secondary bg-clip-text text-transparent">
         I&apos;m Bored
